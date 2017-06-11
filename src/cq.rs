@@ -29,7 +29,9 @@ unsafe impl Send for CompletionQueue {}
 
 impl CompletionQueue {
     pub fn new() -> CompletionQueue {
-        CompletionQueue { cq: unsafe { grpc_sys::grpc_completion_queue_create(ptr::null_mut()) } }
+        CompletionQueue {
+            cq: unsafe { grpc_sys::grpc_completion_queue_create_for_next(ptr::null_mut()) },
+        }
     }
 
     /// Blocks until an event is available, the completion queue is being shut down.
